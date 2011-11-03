@@ -54,7 +54,7 @@ module Rbjs
     attr_accessor :child_statement
     attr_accessor :is_argument
     
-    def initialize name, view_context, *args, &block
+    def initialize name, view_context = nil, *args, &block
       @name = name.to_s.gsub '!', '()'
       @_view_context = view_context
       args << block if block_given?
