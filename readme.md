@@ -1,10 +1,22 @@
-# RJS IS BACK
+## RJS IS BACK
 
-## And it's better than ever before.
+### And it's better than ever before.
 
-Rbjs is a modern RJS extension for Rails 3 and up. It stands for **r**u**b**y**j**ava**s**cript. In contrast to prototype-rails, this library is designed to work with all javascript frameworks.
+Rbjs is a modern RJS (remote javascript) extension for Rails 3 and up. It stands for **r**u**b**y**j**ava**s**cript. In contrast to prototype-rails, this library is designed to work with all javascript frameworks.
 
-However, it is *not* a drop-in replacement for _.rjs_. It does things quite differently.
+However, it is *not* a drop-in replacement for _.rjs_ -- it does things quite differently.
+
+This is a very fresh gem. Feel free to test it while the documentation and tests are still being written. I've added some examples to this readme file. These should help you get a general idea of what this is about.
+
+## Installation
+
+Add the following line to your Gemfile
+
+> gem 'rbjs'
+
+and run _bundle install_ to install the gem and it's dependencies.
+
+## Examples
 
 ### Take a look at a simple example:
   
