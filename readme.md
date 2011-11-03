@@ -54,9 +54,17 @@ However, it is *not* a drop-in replacement for _.rjs_. It does things quite diff
     
     # views/posts/increase_counter.js.rbjs
     allCounters = jQuery('.post.counter')
-    allCounters.each do |counter|
-      currentValue = counter.html!.to_i
-      counter.html(currentValue + @increment)
+    allCounters.each do |index, element|
+      element = jQuery(element)
+      currentValue = element.html!.to_i
+      element.html(currentValue + @increment)
     end
+    
+    # And the result
+    jQuery(".post.counter").each(
+      function(index, element) {
+        jQuery(element).html(jQuery(element).html().to_i+4)
+      }
+    )
 
 More to come.
