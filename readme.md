@@ -49,7 +49,7 @@ and run _bundle install_ to install the gem and it's dependencies.
 
     # controllers/posts_controller.rb
     def refresh_all
-      @posts = Post.all.limit(10)
+      @posts = Post.limit(10)
     end
 
     # views/posts/refresh_all.js.rbjs
