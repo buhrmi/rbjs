@@ -1,0 +1,62 @@
+---
+layout: default
+title: A modern approach to remote javascript
+---
+
+Rbjs is a ruby gem that enables you to use remote javascript in Rails 3 or higher. With Rbjs you can render your javascript on the server and send it back to the client. It saves you from the pain of dealing with response handlers and all the fiddly stuff. Use it to prototype your ajax actions. Once your app gets more javascript-heavy, you can migrate to a sophisticated client library, like "backbone":http://documentcloud.github.com/backbone/.
+
+h2(#why).  Show me an example
+
+This example will render a link that will alert the user with a greeting when it is clicked. Find more, much cooler examples in the "quick start guide":quick_start.html.
+
+{% highlight ruby %}
+# controllers/greeter_controller.rb
+def greet_me
+  render :js do
+    window.alert "Hi there, #{current_user.name}!"
+  end
+end
+
+# views/greeter/index.html.erb
+link_to "Greet me!", "/greeter/greet_me", :remote => true
+{% endhighlight %}
+
+h2(#why).  What people say
+
+"Pragmatic User":http://www.google.com:
+
+bq. Rbjs lets me prototype my ajax actions very quickly. I don't have to think about dealing with JSON response handlers. It's making my life easier.
+
+"Lazy User":http://www.google.com:
+
+bq. In the days of sophisticated client-side libraries like Backbone.js one easily forgets about good old rjs. I don't always want to build another MVC app on the client. With Rbjs I can keep my views on the server and the browser logic-less.
+
+"Lonely User":http://www.google.com:
+
+bq. When does the narwhal bacon?
+
+
+
+h2(#what). Features
+
+* Stuff
+
+So let's "get started":quick_start.html.
+
+
+h2(#news).  What's New
+
+New in Rbjs 0.9.14:
+
+* First public release
+
+
+h2(#notices).  Credits & Notices
+
+"prototype-rails":https://github.com/rails/prototype-rails, the famous rjs library.
+
+"ColorCons":http://www.mouserunner.com/Spheres_ColoCons1_Free_Icons.html, copyright of Ken Saunders.  "DejaVu fonts":http://dejavu.sourceforge.net, copyright of Bitstream, Inc.
+
+Documentation built with "jekyll":http://jekyllrb.com, based on the design used by the "apache builder":http://buildr.apache.org project.
+
+If you like this gem, say hi on "twitter":http://twitter.com/#!buhrmii
