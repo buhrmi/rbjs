@@ -15,17 +15,11 @@ module Rbjs
       end
     end
   end
-  
-  
-  def self.build &block
-    js = Root.new &block
-    js.evaluate
-  end
 
   class Root
-    def initialize view_context = nil, &block
+    def initialize view_context, &block
       @_view_context = view_context and
-      view_context and for instance_var, val in view_context.assigns
+      for instance_var, val in view_context.assigns
         instance_variable_set '@'+instance_var, val
       end
       if @_view_context.respond_to?(:helpers) && @_view_context.helpers
@@ -60,11 +54,11 @@ module Rbjs
     attr_accessor :child_statement
     attr_accessor :is_argument
     
-    def initialize name, view_context = nil, *args, &block
+    def initialize name, view_context, *args, &block
       @name = name.to_s.gsub '!', '()'
       @_view_context = view_context
       args << block if block_given?
-      @arguments = args.map{|arg| Statement.to_argument(arg)}
+      @arguments = args.map{|arg| to_argument(arg)}
     end
     
     def method_missing name, *args, &block
@@ -102,10 +96,12 @@ module Rbjs
       end
     end
     
-    def self.to_argument arg
+    def to_argument arg
       if arg.is_a?(Statement)
         arg.is_argument = true
-        arg.to_s 
+        arg.to_s
+      elsif arg.is_a?(ArgumentProxy)
+        arg.to_s
       elsif arg.is_a?(Array)
         '['+arg.map{|val|to_argument(val)}.join(', ')+']'
       elsif arg.is_a?(Hash)
@@ -117,9 +113,7 @@ module Rbjs
           function_parameter_names = []
           for param in arg.parameters
             function_parameter_names << param[1]
-            function_parameter = root.send(param[1])
-            function_parameter.is_argument = true
-            function_parameters << function_parameter
+            function_parameters << ArgumentProxy.new(root, param[1])
           end
           "function(#{function_parameter_names.join ', '}) {\n#{root.evaluate function_parameters}}"
         end
@@ -128,4 +122,21 @@ module Rbjs
       end
     end
   end
+
+  class ArgumentProxy
+    def initialize root, name
+      @root = root
+      @name = name
+    end
+
+    def method_missing name, *args, &block
+      statement = @root.send(@name)
+      statement.send name, *args, &block
+    end
+
+    def to_s
+      @name
+    end
+  end
+
 end
