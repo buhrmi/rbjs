@@ -54,9 +54,35 @@ However, it is *not* a drop-in replacement for _.rjs_. It does things quite diff
     
     # views/posts/increase_counter.js.rbjs
     allCounters = jQuery('.post.counter')
-    allCounters.each do |counter|
-      currentValue = counter.html!.to_i
-      counter.html(currentValue + @increment)
+    allCounters.each do |index, element|
+      element = jQuery(element)
+      currentValue = element.html!.to_i!
+      element.html(currentValue + @increment)
+    end
+    
+    # And the rendered result. Note the behavior of local variables.
+    jQuery(".post.counter").each(
+      function(index, element) {
+        jQuery(element).html(jQuery(element).html().to_i()+4)
+      }
+    )
+    
+    
+    # Here is the same example, but with variables assigned to javascript instead of local ruby variables.
+    # views/posts/increase_counter.js.rbjs
+    self.allCounters = jQuery('.post.counter')
+    self.allCounters.each do |index, element|
+      self.element = jQuery(element)
+      self.currentValue = element.html!.to_i!
+      element.html(currentValue + @increment)
     end
 
+    # And the rendered result:
+    allCounters=(jQuery(".post.counter"));
+    allCounters.each(function(index, element) {
+      element=(jQuery(element));
+      currentValue=(element.html().to_i());
+      element.html(currentValue+4)
+    })
+    
 More to come.
