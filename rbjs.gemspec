@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.version     = Rbjs::VERSION
   s.authors     = ["Stefan Buhrmester"]
   s.email       = ["buhrmi@gmail.com"]
-  s.homepage    = "http://buhrmi.github.com/rbjs"
+  s.homepage    = "http://github.com/buhrmi/rbjs"
   s.summary     = "Remote Javascript re-imagined"
   s.description = "Remote Javascript Builder for Ruby on Rails"
 
