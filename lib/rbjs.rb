@@ -75,8 +75,11 @@ module Rbjs
         @parent_statement.to_s + '[' + @arguments.first + ']= ' + @arguments.last
       elsif @name == '[]'
         @parent_statement.to_s + '[' + @arguments.first + ']'
+        'var ' + @arguments.join(', ')
       elsif @parent_statement
-        @parent_statement.to_s + '.' + @name + argument_list
+        parent_str = @parent_statement.to_s
+        parent_str += parent_str == 'var' ? ' ' : '.'
+        parent_str + @name + argument_list
       else
         @name + argument_list
       end        
@@ -84,7 +87,6 @@ module Rbjs
     
     def argument_list
       return '' if @arguments.empty?
-      
       '(' + @arguments.join(', ') + ')'
     end
     
