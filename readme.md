@@ -28,7 +28,7 @@ and run _bundle install_ to install the gem and it's dependencies.
     end
 
     # views/greeter/index.html.erb
-    link_to "Hi there!", "greeter#greet_me", :remote => true
+    link_to "Hi there!", "/greeter/greet_me", :remote => true
 
 ### And a more complex example:
 
