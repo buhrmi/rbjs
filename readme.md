@@ -80,20 +80,21 @@ and run _bundle install_ to install the gem and it's dependencies.
     )
     
     
-    # Here is the same example, but with variables assigned to javascript instead of local ruby variables.
+    # Here is the same example, this time declaring the variables in javascript 
+    # by prefixing them with var.
     # views/posts/increase_counter.js.rbjs
-    self.allCounters = jQuery('.post.counter')
-    self.allCounters.each do |index, element|
-      self.element = jQuery(element)
-      self.currentValue = element.html!.to_i!
+    var.allCounters = jQuery('.post.counter')
+    allCounters.each do |index, element|
+      var.element = jQuery(element)
+      var.currentValue = element.html!.to_i!
       element.html(currentValue + @increment)
     end
 
     # And the rendered result:
-    allCounters=(jQuery(".post.counter"));
+    var allCounters=(jQuery(".post.counter"));
     allCounters.each(function(index, element) {
-      element=(jQuery(element));
-      currentValue=(element.html().to_i());
+      var element=(jQuery(element));
+      var currentValue=(element.html().to_i());
       element.html(currentValue+4)
     })
     
