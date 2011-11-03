@@ -61,9 +61,9 @@ module Rbjs
     attr_accessor :is_argument
     
     def initialize name, view_context = nil, *args, &block
+      @name = name.to_s.gsub '!', '()'
       @_view_context = view_context
-      @_block = block
-      @name = name.to_s.gsub '!', '()' if name
+      args << block if block_given?
       @arguments = args.map{|arg| Statement.to_argument(arg)}
     end
     
