@@ -98,4 +98,16 @@ and run _bundle install_ to install the gem and it's dependencies.
       element.html(currentValue+4)
     })
     
+### And even more stuff
+
+    # Raw Javascript:
+    self << 'myFunc($)'
+    
+    # Hashes and Arrays
+    foo[3]= {name => @user.name}
+    
+    # lambdas
+    func = lambda{ window.alert(@message)}
+    setTimeout func, 1000
+    
 More to come.
