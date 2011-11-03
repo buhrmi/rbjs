@@ -108,16 +108,14 @@ module Rbjs
       elsif arg.is_a?(Hash)
         '{'+arg.map{|key, val|to_argument(key)+': '+to_argument(val)}.join(',')+'}'
       elsif arg.is_a?(Proc)
-        begin
-          root = Root.new(@_view_context, &arg)
-          function_parameters = []
-          function_parameter_names = []
-          for param in arg.parameters
-            function_parameter_names << param[1]
-            function_parameters << ArgumentProxy.new(root, param[1])
-          end
-          "function(#{function_parameter_names.join ', '}) {\n#{root.evaluate function_parameters}}"
+        root = Root.new(@_view_context, &arg)
+        function_parameters = []
+        function_parameter_names = []
+        for param in arg.parameters
+          function_parameter_names << param[1]
+          function_parameters << ArgumentProxy.new(root, param[1])
         end
+        "function(#{function_parameter_names.join ', '}) {\n#{root.evaluate function_parameters}}"
       else
         arg.to_json
       end
