@@ -5,7 +5,7 @@ title: Quick Start
 
 On this page you'll find everything you need to install and use Rbjs. Knowledge of Rails and Javascript is assumed.
 
-p(note) This gem is incompatible with _prototype-rails_, and is not a drop-in replacement for it.
+p(note). This gem is incompatible with _prototype-rails_, and is not a drop-in replacement for it.
 
 h2(#installation). Installation
 
