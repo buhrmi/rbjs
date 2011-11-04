@@ -50,7 +50,7 @@ This file will be rendered and translated to javascript whenever your applicatio
 
 h2. From Ruby to Javascript
 
-To get a better understanding for how this translation works, we take a look at a few example _rbjs_ templates and the rendered javascript.
+To get a better understanding for how this translation works, take a look at the following examples.
 
 h3. Working with methods
 
