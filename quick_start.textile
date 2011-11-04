@@ -3,7 +3,9 @@ layout: default
 title: Quick Start
 ---
 
-h2(#why). Installation
+On this page you'll find everything you need to install and use Rbjs. Knowledge of Rails and Javascript is assumed.
+
+h2(#installation). Installation
 
 Add the line
 
@@ -17,10 +19,42 @@ to you Gemfile and run
 $ bundle install
 {% endhighlight %}
 
-h2(#why). Usage
+h2(#usage). Usage
 
 Similar to prototype-rails, there are two ways to write remote javascript: Directly inside the controller using the _render_ method, or inside an _.rbjs_ template. The second way is cleaner, since it keeps your view code outside of the controller, while the first way is much more pragmatic for simple and small snippets.
 
-The main idea of Rbjs is to write ruby code the same way as you would write javascript code. Inside of Rbjs, all method calls and their arguments directly translate into javascript. This is true for any method and argument. Including arrays, hashes, rendered partials, ruby blocks and lambdas, and anything that has a _to_json_ or a _to_s_ method.
+p(tip). The main idea of Rbjs is to write ruby code the same way as you would write javascript code. Inside of Rbjs, all method calls and their arguments directly translate into javascript. This is true for any method and argument. Including arrays, hashes, rendered partials, ruby blocks and lambdas, and anything that has a _to_json_ or a _to_s_ method.
 
-To be continued
+To get a better understanding for how this translation works, we take a look at a few example _rbjs_ templates and the rendered javascript.
+
+Simple method calls translate just as you would expect:
+
+p(example). Simple methods
+
+{% highlight ruby %}
+# Result:
+# window.alert("Hello world!");
+window.alert "Hello world!"
+{% endhighlight %}
+
+Since assignments and the array & hash notation are methods too, you can expect them to work as well:
+
+p(example). Assignments
+
+{% highlight ruby %}
+# Result:
+# myApp.currentUserName=("Conan O'Brien");
+myApp.currentUserName = current_user.name
+{% endhighlight %}
+
+p(example). Member access
+
+{% highlight ruby %}
+# Result:
+# myApp.config["user name"]=(userData[12345]);
+myApp.config["user name"]= userData[@user_id]
+{% endhighlight %}
+
+p(tip). You can access instance variables and view helper methods inside of Rbjs. As you can see, the call to _current_user_ is not translated to javascript.
+
+This documentation is currently being written (last update: Nov. 4). Check back soon.

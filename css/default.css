@@ -199,7 +199,16 @@ ol.toc li ol.toc {
   padding-left: 0.9em;
 }
 
-
+#content p.example {
+	float: right;
+	padding: 0.4em 8em 0.4em 0.8em;
+	background-color: #FEE;
+	margin: 0;
+	position: relative;
+	left: 3em;
+	font-style: italic;
+	color: #555;
+}
 #content p.tip, #content p.note {
   margin: 0.9em 0 0 0;
   padding: 0 0 2em 4em;
