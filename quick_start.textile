@@ -158,7 +158,7 @@ foo bar(4).baz "hello"
 
 h3. The local scope
 
-Caution must be bewared when working with local ruby variables and not get confused. The following Rbjs example will not render what you expect.
+Caution must be used when working with local ruby variables to not get confused. The following Rbjs example will not render what you expect.
 
 {% highlight ruby %}
 # Result:
@@ -191,7 +191,35 @@ var.myVar = local_var
 
 h3. Lambda and blocks
 
+Passing blocks or lambdas to methods will convert them to anonymous javascript functions.
+
+p(example). Blocks
+
+# Result:
+# jQuery(".message").each(function(element, index) {
+#   console.log(index.toString() + " is " + element);
+# })
+jQuery('.message').each do |element, index|
+  console.log index.toString! + " is " + element
+end
+
+p(note). You need to be careful when using operators as seen in this example on javascript elements, eg. for string concatenation. You can read more about using operators down below.
+
+Similarly, you can let Rbjs convert lambdas to functions:
+
+p(example). Lambdas
+
+# Result:
+# setTimeout(function(){alert("One second");}, 1000);
+func = lambda { alert "One second" }
+setTimeout func, 1000
 
 h3. Raw javascript
 
-This documentation is currently being written (last update: Nov. 4). Check back soon.
+You can render raw javascript to the page using the _<<_ method:
+
+self << "alert('hello');"
+
+h3. Operators
+
+This documentation is currently being written (last update: Nov. 5). Check back soon.
