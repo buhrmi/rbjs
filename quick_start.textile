@@ -188,13 +188,13 @@ local_var = foo 1234
 var.myVar = local_var
 {% endhighlight %}
 
-
 h3. Lambda and blocks
 
 Passing blocks or lambdas to methods will convert them to anonymous javascript functions.
 
 p(example). Blocks
 
+{% highlight ruby %}
 # Result:
 # jQuery(".message").each(function(element, index) {
 #   console.log(index.toString() + " is " + element);
@@ -202,6 +202,7 @@ p(example). Blocks
 jQuery('.message').each do |element, index|
   console.log index.toString! + " is " + element
 end
+{% endhighlight %}
 
 p(note). You need to be careful when using operators as seen in this example on javascript elements, eg. for string concatenation. You can read more about using operators down below.
 
@@ -209,16 +210,20 @@ Similarly, you can let Rbjs convert lambdas to functions:
 
 p(example). Lambdas
 
+{% highlight ruby %}
 # Result:
 # setTimeout(function(){alert("One second");}, 1000);
 func = lambda { alert "One second" }
 setTimeout func, 1000
+{% endhighlight %}
 
 h3. Raw javascript
 
 You can render raw javascript to the page using the _<<_ method:
 
+{% highlight ruby %}
 self << "alert('hello');"
+{% endhighlight %}
 
 h3. Operators
 
