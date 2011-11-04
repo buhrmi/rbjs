@@ -58,6 +58,10 @@ h2(#news).  What's New
 
 New in Rbjs 0.9.14:
 
+* Javascript translation for ruby constants
+
+New in Rbjs 0.9.13:
+
 * First public release
 
 
