@@ -196,10 +196,10 @@ p(example). Blocks
 
 {% highlight ruby %}
 # Result:
-# jQuery(".message").each(function(element, index) {
+# jQuery(".message").each(function(index, element) {
 #   console.log(index.toString() + " is " + element);
 # })
-jQuery('.message').each do |element, index|
+jQuery('.message').each do |index, element|
   console.log index.toString! + " is " + element
 end
 {% endhighlight %}
