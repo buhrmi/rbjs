@@ -5,7 +5,7 @@ title: Quick Start
 
 On this page you'll find everything you need to install and use Rbjs. Knowledge of Rails and Javascript is assumed.
 
-p(note). This gem is incompatible with _prototype-rails_, and is not a drop-in replacement for it.
+p(note). Although this gem is incompatible with _prototype-rails_, it is not a drop-in replacement for it.
 
 h2(#installation). Installation
 
@@ -40,7 +40,7 @@ end
 
 h3. Using .rbjs templates
 
-_.rbjs_ templates are files inside your view directories that end with _.js.rbjs_. Whenever your application receives an xhr request, it will look for the corresponding _.rbjs_ template inside your view path. Let's say there is the following file called _greet_me.js.rbjs_ inside of your _views/greeter/_ directory:
+_.rbjs_ templates are files inside your view directories that end with _.js.rbjs_. Whenever your application receives an xhr request, it will look for the corresponding _.rbjs_ template inside your view path. Let's say there is the following file called _greet_me.js.rbjs_ inside your _views/greeter/_ directory:
 
 {% highlight ruby %}
 console.log "Hello from ruby"
