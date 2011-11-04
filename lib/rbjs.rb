@@ -43,6 +43,7 @@ module Rbjs
         statement
       end
     end
+    alias_method :const_missing, :method_missing
     
     def << line
       @_called_statements << Statement.new(line)
