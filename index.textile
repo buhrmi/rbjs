@@ -9,7 +9,7 @@ Rbjs is a ruby gem that enables you to write remote javascript in Rails 3 or hig
 
 h2(#example).  Show me an example
 
-This example will render a link that will alert the user with a greeting when it is clicked. Find more examples in the "quick start guide":quick_start.html and learn how to use _.rbjs_ templates.
+This example renders a link that - after being clicked - will alert the user with a greeting. Find more examples in the "quick start guide":quick_start.html and learn how to use _.rbjs_ templates.
 
 {% highlight ruby %}
 # controllers/greeter_controller.rb
@@ -29,21 +29,23 @@ Wait. Isn't rjs considered obtrusive?
 
 Yes. You wouldn't use this for rich clients and javascript-heavy apps. Use "backbone":http://documentcloud.github.com/backbone/ instead. This is targeted at simple ajax stuff. You know, keeping simple stuff simple.
 
-h2(#people).  What people say
+h2(#people).  What people* say
 
-"Pragmatic User":http://www.google.com:
+"Pragmatic Developer":http://www.google.com:
 
 bq. Rbjs lets me prototype my ajax actions very quickly. I don't have to think about dealing with JSON response handlers. It's making my life easier.
 
-"Lazy User":http://www.google.com:
+"Lazy Developer":http://www.google.com:
 
 bq. In the days of sophisticated client-side libraries like Backbone.js one easily forgets about good old rjs for the simple stuff. I don't always want to build a full-fledged MVC app on the client. With Rbjs I can keep my javascript on the server and my browser stays logic-less.
 
-"Lonely User":http://www.google.com:
+"Clever Developer":http://www.google.com:
+
+bq. It's so nice to have Rbjs around. It's like having a friend with superpowers. Although I work on a javascript-heavy client, I like to fall back to rjs for the parts of my app that aren't covered by the client's logic (yet).
+
+"Crazy Developer":http://www.google.com:
 
 bq. When does the narwhal bacon?
-
-
 
 h2(#features). Features
 
@@ -68,3 +70,5 @@ h2(#notices).  Credits & Notices
 Documentation built with "jekyll":http://jekyllrb.com, based on the design by the "apache buildr":http://buildr.apache.org project.
 
 If you like this gem, say hi on "twitter":http://twitter.com/#!buhrmii
+
+*as in mostly me.
