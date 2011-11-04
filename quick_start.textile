@@ -265,13 +265,7 @@ alert "Truly " + something
 
 When you want to work with operators inside of Rbjs you should always think about them as method calls and make sure that they are only called on Rbjs objects.
 
-p(tip). This limitation is addressed with the release of ruby 2.0 and refinements. For now, you can use the following workaround:
-{% highlight ruby %}
-# Result:
-# console.log("Hello, "+user);
-console.log Rbjs::Expression.new('"Hello, "') + user
-{% endhighlight %}
-
+p(tip). This limitation is addressed with the release of ruby 2.0 and refinements. For now, you can find a workaround in the _Digging Deeper_ section.
 
 h3. Even more
 
