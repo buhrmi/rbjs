@@ -5,6 +5,8 @@ title: Quick Start
 
 On this page you'll find everything you need to install and use Rbjs. Knowledge of Rails and Javascript is assumed.
 
+p(note) This gem is incompatible with _prototype-rails_, and is not a drop-in replacement for it.
+
 h2(#installation). Installation
 
 Add the line
@@ -13,7 +15,7 @@ Add the line
 $ gem 'rbjs'
 {% endhighlight %}
 
-to you Gemfile and run
+to your Gemfile and run
 
 {% highlight sh %}
 $ bundle install
@@ -23,7 +25,30 @@ h2(#usage). Usage
 
 Similar to prototype-rails, there are two ways to write remote javascript: Directly inside the controller using the _render_ method, or inside an _.rbjs_ template. The second way is cleaner, since it keeps your view code outside of the controller, while the first way is much more pragmatic for simple and small snippets.
 
-p(tip). The main idea of Rbjs is to write ruby code the same way as you would write javascript code. Inside of Rbjs, all method calls and their arguments directly translate into javascript. This is true for any method and argument. Including arrays, hashes, rendered partials, ruby blocks and lambdas, and anything that has a _to_json_ or a _to_s_ method.
+p(tip). The main idea behind Rbjs is to write ruby code the same way you would write javascript code and to keep the logic outside of the browser. Inside of Rbjs, all method calls and their arguments directly translate into javascript. This is true for any method and argument. Including arrays, hashes, rendered partials, ruby blocks and lambdas, and anything that has a _to_json_ or a _to_s_ method.
+
+
+h3. Using the render method
+
+Inside of your controller, in an action that is accessed via xhr, you can call _render :js_ with a block containing Rbjs code:
+
+{% highlight ruby %}
+render :js do
+  console.log "Hello from ruby"
+end
+{% endhighlight %}
+
+h3. Using .rbjs templates
+
+_.rbjs_ templates are files inside your view directories that end with _.js.rbjs_. Whenever your application receives an xhr request, it will look for the corresponding _.rbjs_ template inside your view path. Let's say there is the following file called _greet_me.js.rbjs_ inside of your _views/greeter/_ directory:
+
+{% highlight ruby %}
+console.log "Hello from ruby"
+{% endhighlight %}
+
+This file will be rendered and translated to javascript whenever your application receives an xhr request for "greeter#greet_me", for example by clicking a link that has been generated with _link_to "Greet me", "/greeter/greet_me", :remote => true_
+
+h2. From Ruby to Javascript
 
 To get a better understanding for how this translation works, we take a look at a few example _rbjs_ templates and the rendered javascript.
 
@@ -37,7 +62,20 @@ p(example). Simple methods
 window.alert "Hello world!"
 {% endhighlight %}
 
-Since assignments and the array & hash notation are methods too, you can expect them to work as well:
+This can be used to quickly update a DOM element in the browser via a controller action:
+
+p(example). Update the DOM
+
+{% highlight ruby %}
+# Result:
+# jQuery("#message_123").html("Hi guys!");
+message = Message.find 123
+render :js do
+  jQuery(message.selector).html message.text
+end
+{% endhighlight %}
+
+Since assignments are methods too, you can expect them to work as well:
 
 p(example). Assignments
 
@@ -46,6 +84,8 @@ p(example). Assignments
 # myApp.currentUserName=("Conan O'Brien");
 myApp.currentUserName = current_user.name
 {% endhighlight %}
+
+And because we work with ruby, array and hash access are also methods. This lets us use them inside of Rbjs, too:
 
 p(example). Member access
 

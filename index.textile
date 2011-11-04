@@ -59,6 +59,6 @@ h2(#notices).  Credits & Notices
 
 "ColorCons":http://www.mouserunner.com/Spheres_ColoCons1_Free_Icons.html, copyright of Ken Saunders.  "DejaVu fonts":http://dejavu.sourceforge.net, copyright of Bitstream, Inc.
 
-Documentation built with "jekyll":http://jekyllrb.com, based on the design used by the "apache builder":http://buildr.apache.org project.
+Documentation built with "jekyll":http://jekyllrb.com, based on the design by the "apache buildr":http://buildr.apache.org project.
 
 If you like this gem, say hi on "twitter":http://twitter.com/#!buhrmii
