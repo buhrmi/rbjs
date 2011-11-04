@@ -225,6 +225,54 @@ You can render raw javascript to the page using the _<<_ method:
 self << "alert('hello');"
 {% endhighlight %}
 
+h3. Avoiding name conflicts
+
+Let's say you have an object living in the global namespace of your client-side javascript called _Rails_. The following Rbjs would raise an exception:
+
+{% highlight ruby %}
+# Raises:
+# NoMethodError: undefined method `foo' for Rails:Module
+Rails.foo!
+{% endhighlight %}
+
+To resolve this conflict, you'd have to prefix the occupied identifier with _self._, like so:
+
+{% highlight ruby %}
+# Result:
+# Rails.foo();
+self.Rails.foo!
+{% endhighlight %}
+
 h3. Operators
 
-This documentation is currently being written (last update: Nov. 5). Check back soon.
+Yes, you can use operators on Rbjs objects. However, you need to be very careful when combining Rbjs objects with other ruby objects. Take a look at the following example:
+
+p(example). Operators
+
+{% highlight ruby %}
+# Result:
+# alert(something + ", truly!");
+alert something + ", truly!"
+{% endhighlight %}
+
+These kinds of operations work if and only if the first object in the chain of operations is an Rbjs call (in this case _"something"_). The following example does not work:
+
+{% highlight ruby %}
+# Raises:
+# TypeError: can't convert Rbjs::Expression to String
+alert "Truly " + something
+{% endhighlight %}
+
+When you want to work with operators inside of Rbjs you should always think about them as method calls and make sure that they are only called on Rbjs objects.
+
+p(tip). This limitation is addressed with the release of ruby 2.0 and refinements. For now, you can use the following workaround:
+{% highlight ruby %}
+# Result:
+# console.log("Hello, "+user);
+console.log Rbjs::Expression.new('"Hello, "') + user
+{% endhighlight %}
+
+
+h3. Even more
+
+Check back soon.
