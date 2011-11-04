@@ -52,6 +52,8 @@ h2. From Ruby to Javascript
 
 To get a better understanding for how this translation works, we take a look at a few example _rbjs_ templates and the rendered javascript.
 
+h3. Working with methods
+
 Simple method calls translate just as you would expect:
 
 p(example). Simple methods
@@ -95,6 +97,101 @@ p(example). Member access
 myApp.config["user name"]= userData[@user_id]
 {% endhighlight %}
 
-p(tip). You can access instance variables and view helper methods inside of Rbjs. As you can see, the call to _current_user_ is not translated to javascript.
+p(tip). You can access instance variables, view helper methods, and the local scope inside of Rbjs. As you can see, the calls to _current_user_, _message_, and _@user_id_ is not translated to javascript.
+
+To call a javascript method without an argument, add a _!_ to its name.
+
+p(example). Method without arguments
+
+{% highlight ruby %}
+# Result:
+# myMethod;
+# myMethod();
+myMethod
+myMethod!
+{% endhighlight %}
+
+
+h3. Working with arguments
+
+As you have seen in the above examples, any arguments that get passed to javascript functions are being translated too. But this does not only work for simple arguments, like strings and numbers. You can work with any kind of object.
+
+p(example). Primitive types
+
+{% highlight ruby %}
+# Result:
+# foo("a string", 123, "a_symbol");
+foo 'a string, 123, :a_symbol
+{% endhighlight %}
+
+Symbols are being converted to strings, while there is no change on strings and numbers. With this, we can use Rbjs to easily update rendered partials:
+
+p(example). Partials
+
+{% highlight ruby %}
+# Result:
+# jQuery("#posts").append("<div.../div>");
+jQuery("#posts").append render @post
+{% endhighlight %}
+
+Arrays and Hashes, arbitrarily nested, are converted to javascript objects.
+
+p(example). Arrays and Hashes
+
+{% highlight ruby %}
+# Result:
+# foo(["Steven", {"street_name_": "Sesame Street", "street_number": 42}]);
+foo [@user.name, {:street_name => @user.street_name, :street_number => @user.street_number}]
+{% endhighlight %}
+
+p(tip). Whenever you pass an argument to a javascript method, Rbjs will invoke it's _to_json_ method.
+
+You can also pass nested Rbjs as arguments. This functionality, too, be arbitrarily nested.
+
+p(example). Nested Rbjs
+
+{% highlight ruby %}
+# Result:
+# foo(bar(4).baz("hello"));
+foo bar(4).baz "hello"
+{% endhighlight %}
+
+h3. The local scope
+
+Caution must be bewared when working with local ruby variables and not get confused. The following Rbjs example will not render what you expect.
+
+{% highlight ruby %}
+# Result:
+# foo(1234);
+myVar = foo 1234
+{% endhighlight %}
+
+This is not an assignment to a javascript variable, but to a normal local ruby variable. To assign a local javascript variable, you need to assign it to _self_, like so:
+
+p(example). Local assignment
+
+{% highlight ruby %}
+# Result:
+# myVar=(foo(1234));
+local_var = foo 1234
+self.myVar = local_var
+{% endhighlight %}
+
+You can use the _var_ method on _self_ to initialize new javascript variables:
+
+p(example). Variable declaration
+
+{% highlight ruby %}
+# Result:
+# var myVar=(foo(1234));
+local_var = foo 1234
+var.myVar = local_var
+{% endhighlight %}
+
+
+h3. Lambda and blocks
+
+
+h3. Raw javascript
 
 This documentation is currently being written (last update: Nov. 4). Check back soon.
