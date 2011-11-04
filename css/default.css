@@ -52,7 +52,7 @@ pre br { display: none; }
 h1, h2, h3 {
   font-family: "Gill Sans";
   padding: 0;
-  margin: 1.6em 0 0.6em -0.9em;
+  margin: 1.6em 0 0.6em 0;
   line-height: 1.25em;
   letter-spacing: 0.03em;
 }
@@ -116,12 +116,12 @@ th, thead td {
 #wrap{
   margin: 1em auto 2em auto;
   text-align: left;
-  width: 65em;
+  width: 60em;
 }
 
 
 #header {
-  margin: 0 0 3em 3em;
+  margin: 0 0 3em 0;
   position: relative;
 }
 

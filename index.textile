@@ -5,9 +5,9 @@ title: A modern approach to remote javascript
 
 Keep the browser logic-less.
 
-Rbjs is a ruby gem that enables you to write remote javascript in Rails 3 or higher. With Rbjs you can render your javascript dynamically on the server and send it back to the client. Use it to quickly prototype your ajax actions. It saves you from the pain of dealing with response handlers and all the fiddly stuff. Once your app gets more javascript-heavy, you should migrate to a sophisticated client library, like "backbone":http://documentcloud.github.com/backbone/.
+Rbjs is a ruby gem that enables you to write remote javascript in Rails 3 or higher. With Rbjs you can render your javascript dynamically on the server and send it back to the client. Use it to quickly prototype your ajax actions. It saves you from the pain of dealing with response handlers and all the fiddly stuff. And once your app gets more javascript-heavy, you can migrate to a sophisticated client library, like "backbone":http://documentcloud.github.com/backbone/.
 
-h2(#why).  Show me an example
+h2(#example).  Show me an example
 
 This example will render a link that will alert the user with a greeting when it is clicked. Find more examples in the "quick start guide":quick_start.html and learn how to use _.rbjs_ templates.
 
@@ -23,7 +23,7 @@ end
 link_to "Greet me!", "/greeter/greet_me", :remote => true
 {% endhighlight %}
 
-h2(#why).  What people say
+h2(#people).  What people say
 
 "Pragmatic User":http://www.google.com:
 
@@ -39,7 +39,7 @@ bq. When does the narwhal bacon?
 
 
 
-h2(#what). Features
+h2(#features). Features
 
 * Stuff
 

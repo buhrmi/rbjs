@@ -3,4 +3,24 @@ layout: default
 title: Quick Start
 ---
 
-Coming soon.
+h2(#why). Installation
+
+Add the line
+
+{% highlight sh %}
+$ gem 'rbjs'
+{% endhighlight %}
+
+to you Gemfile and run
+
+{% highlight sh %}
+$ bundle install
+{% endhighlight %}
+
+h2(#why). Usage
+
+Similar to prototype-rails, there are two ways to write remote javascript: Directly inside the controller using the _render_ method, or inside an _.rbjs_ template. The second way is cleaner, since it keeps your view code outside of the controller, while the first way is much more pragmatic for simple and small snippets.
+
+The main idea of Rbjs is to write ruby code the same way as you would write javascript code. Inside of Rbjs, all method calls and their arguments directly translate into javascript. This is true for any method and argument. Including arrays, hashes, rendered partials, ruby blocks and lambdas, and anything that has a _to_json_ or a _to_s_ method.
+
+To be continued
