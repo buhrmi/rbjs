@@ -121,7 +121,7 @@ p(example). Primitive types
 {% highlight ruby %}
 # Result:
 # foo("a string", 123, "a_symbol");
-foo 'a string, 123, :a_symbol
+foo 'a string', 123, :a_symbol
 {% endhighlight %}
 
 Symbols are being converted to strings, while there is no change on strings and numbers. With this, we can use Rbjs to easily update rendered partials:
@@ -146,7 +146,7 @@ foo [@user.name, {:street_name => @user.street_name, :street_number => @user.str
 
 p(tip). Whenever you pass an argument to a javascript method, Rbjs will invoke it's _to_json_ method.
 
-You can also pass nested Rbjs as arguments. This functionality, too, be arbitrarily nested.
+You can also pass nested Rbjs as arguments. This functionality, too, can be arbitrarily nested.
 
 p(example). Nested Rbjs
 
