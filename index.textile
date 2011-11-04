@@ -23,7 +23,9 @@ end
 link_to "Greet me!", "/greeter/greet_me", :remote => true
 {% endhighlight %}
 
-h2(#uhm). Wait. Isn't rjs considered obtrusive?
+h2(#uhm). Uhm...
+
+Wait. Isn't rjs considered obtrusive?
 
 Yes. You wouldn't use this for rich clients and javascript-heavy apps. Use "backbone":http://documentcloud.github.com/backbone/ instead. This is targeted at simple ajax stuff. You know, keeping simple stuff simple.
 
