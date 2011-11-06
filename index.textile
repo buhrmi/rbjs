@@ -9,19 +9,51 @@ Rbjs is a ruby gem that enables you to write remote javascript in Rails 3 or hig
 
 h2(#example).  Show me an example
 
-This example renders a link that - after being clicked - will alert the user with a greeting. Find more examples in the "quick start guide":quick_start.html and learn how to use _.rbjs_ templates.
+Sure. This example renders an input box. After entering a message and clicking submit, the message partial is rendered and appended to the list of messages. In addition, the flash message gets updated.
+
+{% highlight erb %}
+# in views/messages/index.html.erb
+<%= form_for(Message.new, :remote => true) do |f| %>
+  <%= f.text_field :text %>  
+  <%= f.submit %>
+<% end %>
+{% endhighlight %}
 
 {% highlight ruby %}
-# controllers/greeter_controller.rb
-def greet_me
+# in controllers/messages_controller.rb
+# POST /messages
+def create
+  @message = Message.create(params[:message])
   render :js do
-    window.alert "Hi there, #{current_user.name}!"
+    jQuery(render @message).appendTo('#messages').fadeIn(1000)
+    jQuery('#flash').html(t 'flash.message.created').show!
+  end
+end
+{% endhighlight %}
+
+As an experienced and disciplined Rails developer you might want to go ahead and extract the render call into a template and wrap everything in a _respond_to_ block for graceful degradation. You can do that, too.
+
+{% highlight ruby %}
+# in controllers/messages_controller.rb
+# POST /messages
+# POST /messages.json
+def create
+  @message = Message.create(params[:message])
+  respond_to do |format|
+    format.html { redirect_to :back, notice: t('flash.message.created') }
+    format.json { render json: @entry, status: :created, location: @message }
+    format.js
   end
 end
 
-# views/greeter/index.html.erb
-link_to "Greet me!", "/greeter/greet_me", :remote => true
+# in views/messages/create.js.rbjs
+jQuery(render @message).appendTo('#messages').fadeIn(1000)
+jQuery('#flash').html(t 'flash.message.created').show!
 {% endhighlight %}
+
+There is no simpler way to combine a RESTful interface with ajax.
+
+Find more examples in the "quick start guide":quick_start.html
 
 h2(#uhm). Uhm...
 
