@@ -19,6 +19,7 @@
 .highlight .n { color: black } /* identifier */
 .highlight .o, .highlight .p { color: darkblue } /* = + */
 .highlight .ss { color: darkblue } /* symbol */
+.highlight .x { color: gray } /* comment */
 .highlight .c1 { color: gray } /* comment */
 .highlight .nf { color: #383;}
 .highlight .s2 {color: #936;}
