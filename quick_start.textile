@@ -3,7 +3,7 @@ layout: default
 title: Quick Start
 ---
 
-On this page you'll find everything you need to install and use Rbjs. Knowledge of Rails and Javascript is assumed.
+Here you'll find everything you need to install and to use Rbjs. Knowledge of Rails and Javascript is assumed.
 
 p(note). Although this gem is incompatible with _prototype-rails_, it is not a drop-in replacement for it.
 
@@ -23,14 +23,14 @@ $ bundle install
 
 h2(#usage). Usage
 
-Similar to prototype-rails, there are two ways to write remote javascript: Directly inside the controller using the _render_ method, or inside an _.rbjs_ template. The second way is cleaner, since it keeps your view code outside of the controller, while the first way is much more pragmatic for simple and small snippets.
+Similar to prototype-rails, there are two ways to write remote javascript: Directly by using the _render_ method within the controller, or within an _.rbjs_ template. The second way is cleaner, since it keeps your view code outside of the controller, while the first way is much more pragmatic for simple and small snippets.
 
-p(tip). The main idea behind Rbjs is to write ruby code the same way you would write javascript code and to keep the logic outside of the browser. Inside of Rbjs, all method calls and their arguments directly translate into javascript. This is true for any method and argument. Including arrays, hashes, rendered partials, ruby blocks and lambdas, and anything that has a _to_json_ or a _to_s_ method.
+p(tip). The main idea behind Rbjs is to write ruby code the same way you would write javascript code and to keep the logic away from the browser. Within an .rbjs-file, all method calls and their arguments are directly translated to javascript. This is true for any method and argument, including arrays, hashes, rendered partials, ruby blocks and lambdas, and anything that has a _to_json_ or a _to_s_ method.
 
 
 h3. Using the render method
 
-Inside of your controller, in an action that is accessed via xhr, you can call _render :js_ with a block containing Rbjs code:
+Within an controller action, which is requested via xhr by your browser, you can call _render :js_ with a block containing the following rbjs code:
 
 {% highlight ruby %}
 render :js do
@@ -87,7 +87,7 @@ p(example). Assignments
 myApp.currentUserName = current_user.name
 {% endhighlight %}
 
-And because we work with ruby, array and hash access are also methods. This lets us use them inside of Rbjs, too:
+Of course, working with ruby means that array and hash access also count as methods. This lets us use them within Rbjs, too:
 
 p(example). Member access
 
@@ -97,7 +97,7 @@ p(example). Member access
 myApp.config["user name"]= userData[@user_id]
 {% endhighlight %}
 
-p(tip). You can access instance variables, view helper methods, and the local scope inside of Rbjs. As you can see, the calls to _current_user_, _message_, and _@user_id_ is not translated to javascript.
+p(tip). You can access instance variables, view helper methods, and the local scope inside of Rbjs. As you can see, the calls to _current_user_, _message_, and _@user_id_ are not translated to javascript.
 
 To call a javascript method without an argument, add a _!_ to its name.
 
@@ -114,7 +114,7 @@ myMethod!
 
 h3. Working with arguments
 
-As you have seen in the above examples, any arguments that get passed to javascript functions are being translated too. But this does not only work for simple arguments, like strings and numbers. You can work with any kind of object.
+As you have seen above, any arguments that get passed to javascript functions are being translated too. But this does not only work for simple arguments, like strings and numbers. You can work with any kind of object.
 
 p(example). Primitive types
 
@@ -124,7 +124,7 @@ p(example). Primitive types
 foo 'a string', 123, :a_symbol
 {% endhighlight %}
 
-Symbols are being converted to strings, while there is no change on strings and numbers. With this, we can use Rbjs to easily update rendered partials:
+Symbols are converted to strings, while there is no change on strings and numbers. Using this behavior, we can use Rbjs to easily update rendered partials:
 
 p(example). Partials
 
@@ -144,9 +144,9 @@ p(example). Arrays and Hashes
 foo [@user.name, {:street_name => @user.street_name, :street_number => @user.street_number}]
 {% endhighlight %}
 
-p(tip). Whenever you pass an argument to a javascript method, Rbjs will invoke it's _to_json_ method.
+p(tip). Whenever you pass an argument to a javascript method, Rbjs will invoke its _to_json_ method.
 
-You can also pass nested Rbjs as arguments. This functionality, too, can be arbitrarily nested.
+You can also pass nested Rbjs as arguments. This functionality can also be arbitrarily nested.
 
 p(example). Nested Rbjs
 
@@ -158,7 +158,7 @@ foo bar(4).baz "hello"
 
 h3. The local scope
 
-Caution must be used when working with local ruby variables to not get confused. The following Rbjs example will not render what you expect.
+Use caution when working with local ruby variables to avoid getting confused. The following Rbjs example will not render what you expect.
 
 {% highlight ruby %}
 # Result:
@@ -204,7 +204,7 @@ jQuery('.message').each do |index, element|
 end
 {% endhighlight %}
 
-p(note). You need to be careful when using operators as seen in this example on javascript elements, eg. for string concatenation. You can read more about using operators down below.
+p(note). You need to be careful when using operators on javascript elements, eg. for string concatenation. You can read more about using operators down below.
 
 Similarly, you can let Rbjs convert lambdas to functions:
 
@@ -265,7 +265,7 @@ alert "Truly " + something
 
 When you want to work with operators inside of Rbjs you should always think about them as method calls and make sure that they are only called on Rbjs objects.
 
-p(tip). This limitation is addressed with the release of ruby 2.0 and refinements. For now, you can find a workaround in the _Digging Deeper_ section.
+p(tip). This limitation is addressed with the release of ruby 2.0 and refinements. For now, you can work around this limitation by wrapping the expression like so: window.alert(Rbjs::Expression.new("'Hello, '+ name")).
 
 h3. Even more
 
