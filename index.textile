@@ -11,6 +11,8 @@ h2(#example).  Show me an example
 
 Sure. This example renders an input box. After entering a message and clicking submit, the message partial is rendered and appended to the list of messages. In addition, the flash message gets updated.
 
+h3. Variation 1
+
 {% highlight erb %}
 # in views/messages/index.html.erb
 <%= form_for(Message.new, :remote => true) do |f| %>
@@ -33,6 +35,8 @@ end
 
 As an experienced and disciplined Rails developer you might want to go ahead and extract the render call into a template and wrap everything in a _respond_to_ block for graceful degradation. You can do that, too.
 
+h3. Variation 2
+
 {% highlight ruby %}
 # in controllers/messages_controller.rb
 # POST /messages
@@ -41,7 +45,7 @@ def create
   @message = Message.create(params[:message])
   respond_to do |format|
     format.html { redirect_to :back, notice: t('flash.message.created') }
-    format.json { render json: @entry, status: :created, location: @message }
+    format.json { render json: @message, status: :created, location: @message }
     format.js
   end
 end
