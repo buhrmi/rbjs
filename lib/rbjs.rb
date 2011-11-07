@@ -26,33 +26,33 @@ module Rbjs
         extend @_view_context.helpers
       end
       @_block = block
-      @_called_statements = []
+      @_called_expressions = []
     end
     
     def evaluate function_parameters = nil
       instance_exec *function_parameters, &@_block
-      @_called_statements.map(&:last_of_chain).reject(&:is_argument).map(&:to_s).join(";\n")
+      @_called_expressions.map(&:last_of_chain).reject(&:is_argument).map(&:to_s).join(";\n")
     end
     
     def method_missing name, *args, &block
       if @_view_context and @_view_context.respond_to?(name)
         @_view_context.send name, *args, &block
       else
-        statement = Statement.new name, @_view_context, *args, &block
-        @_called_statements << statement
-        statement
+        expression = Expression.new name, @_view_context, *args, &block
+        @_called_expressions << expression
+        expression
       end
     end
     alias_method :const_missing, :method_missing
     
     def << line
-      @_called_statements << Statement.new(line)
+      @_called_expressions << Expression.new(line)
     end
   end
   
-  class Statement
-    attr_accessor :parent_statement
-    attr_accessor :child_statement
+  class Expression
+    attr_accessor :parent_expression
+    attr_accessor :child_expression
     attr_accessor :is_argument
     
     def initialize name, view_context = nil, *args, &block
@@ -63,21 +63,21 @@ module Rbjs
     end
     
     def method_missing name, *args, &block
-      statement = Statement.new name, @_view_context, *args, &block
-      statement.parent_statement = self
-      self.child_statement = statement
-      statement
+      expression = Expression.new name, @_view_context, *args, &block
+      expression.parent_expression = self
+      self.child_expression = expression
+      expression
     end
     
     def to_s
       if ['+','-','*','/'].include?(@name)
-        @parent_statement.to_s + @name + @arguments.first
+        @parent_expression.to_s + @name + @arguments.first
       elsif @name == '[]='
-        @parent_statement.to_s + '[' + @arguments.first + ']= ' + @arguments.last
+        @parent_expression.to_s + '[' + @arguments.first + ']= ' + @arguments.last
       elsif @name == '[]'
-        @parent_statement.to_s + '[' + @arguments.first + ']'
-      elsif @parent_statement
-        parent_str = @parent_statement.to_s
+        @parent_expression.to_s + '[' + @arguments.first + ']'
+      elsif @parent_expression
+        parent_str = @parent_expression.to_s
         parent_str += parent_str == 'var' ? ' ' : '.'
         parent_str + @name + argument_list
       else
@@ -91,15 +91,15 @@ module Rbjs
     end
     
     def last_of_chain
-      if @child_statement
-        @child_statement.last_of_chain
+      if @child_expression
+        @child_expression.last_of_chain
       else
         self
       end
     end
     
     def to_argument arg
-      if arg.is_a?(Statement)
+      if arg.is_a?(Expression)
         arg.is_argument = true
         arg.to_s
       elsif arg.is_a?(ArgumentProxy)
@@ -130,8 +130,8 @@ module Rbjs
     end
 
     def method_missing name, *args, &block
-      statement = @root.send(@name)
-      statement.send name, *args, &block
+      expression = @root.send(@name)
+      expression.send name, *args, &block
     end
 
     def to_s
