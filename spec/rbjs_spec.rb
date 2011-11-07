@@ -123,4 +123,14 @@ describe Rbjs::Root, '#evaluate' do
     js.strip.should == 'alert("InstanceLocal")'
   end
 
+  it "should convert regexp to javascript" do
+    js = build do
+      docs.map do |doc|
+        w.match /^_/
+        emit doc
+      end
+    end
+    js.strip.should == "docs.map(function(doc) {\nw.match(/^_/);\nemit(doc)})"
+  end
+
 end

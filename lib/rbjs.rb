@@ -117,6 +117,8 @@ module Rbjs
           function_parameters << ArgumentProxy.new(root, param[1])
         end
         "function(#{function_parameter_names.join ', '}) {\n#{root.evaluate function_parameters}}"
+      elsif arg.is_a?(Regexp)
+        arg.inspect
       else
         arg.to_json
       end
