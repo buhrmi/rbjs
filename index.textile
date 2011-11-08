@@ -92,9 +92,14 @@ So let's "get started":quick_start.html.
 
 h2(#news).  What's New
 
+New in Rbjs 0.9.15:
+
+* Test suite included in repostory
+* Javascript translation of regular expressions
+
 New in Rbjs 0.9.14:
 
-* Javascript translation for ruby constants
+* Javascript translation of constants
 
 New in Rbjs 0.9.13:
 
