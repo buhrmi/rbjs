@@ -1,4 +1,3 @@
-
 ActionView::Helpers::RenderingHelper.module_eval do
   def render_with_js(options = {}, locals = {}, &block)
     if options == :js

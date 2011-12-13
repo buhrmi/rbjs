@@ -1,26 +1,31 @@
 require "rbjs/version"
-require 'rails'
-require 'active_support'
 require 'json'
 
+if defined?(Rails)
+  require 'rbjs/rails'
+end
+
+if defined?(Tilt)
+  require 'rbjs/tilt'
+end
+
+if defined?(Sinatra)
+  require 'rbjs/sinatra'
+end
+
 module Rbjs
-  
-  class Railtie < Rails::Railtie
-    initializer 'rbjs.setup' do
-      ActiveSupport.on_load(:action_controller) do
-        require 'rbjs/setup_action_controller'
-      end
-      ActiveSupport.on_load(:action_view) do
-        require 'rbjs/setup_action_view'
-      end
-    end
-  end
 
   class Root
     def initialize view_context, &block
       @_view_context = view_context and
-      for instance_var, val in view_context.assigns
-        instance_variable_set '@'+instance_var, val
+      if view_context.respond_to?(:assigns)
+        for instance_var, val in view_context.assigns
+          instance_variable_set '@'+instance_var, val
+        end
+      else
+        for instance_var in view_context.instance_variables.map(&:to_s)
+          instance_variable_set instance_var, view_context.instance_variable_get(instance_var)
+        end
       end
       if @_view_context.respond_to?(:helpers) && @_view_context.helpers
         extend @_view_context.helpers
