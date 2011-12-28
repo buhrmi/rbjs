@@ -1,6 +1,6 @@
 module Rbjs
-  Sinatra.helpers do
-    def js content=nil, &block
+  module Helpers
+    def rbjs content=nil, &block
       content_type 'application/javascript'
       if block_given?
         render :rbjs, '', &block
@@ -9,4 +9,6 @@ module Rbjs
       end
     end
   end
+  Sinatra.helpers Helpers
+  Sinatra::Base.helpers Helpers
 end
