@@ -36,7 +36,7 @@ module Rbjs
     
     def evaluate function_parameters = nil
       instance_exec *function_parameters, &@_block
-      @_called_expressions.map(&:last_of_chain).reject(&:is_argument).map(&:to_s).join(";\n")
+      @_called_expressions.map(&:last_childs).flatten.reject(&:is_argument).map(&:to_s).join(";\n")
     end
     
     def method_missing name, *args, &block
@@ -57,10 +57,11 @@ module Rbjs
   
   class Expression
     attr_accessor :parent_expression
-    attr_accessor :child_expression
+    attr_accessor :child_expressions
     attr_accessor :is_argument
     
     def initialize name, view_context = nil, *args, &block
+      @child_expressions = []
       @name = name.to_s.gsub '!', '()'
       @_view_context = view_context
       args << block if block_given?
@@ -70,7 +71,7 @@ module Rbjs
     def method_missing name, *args, &block
       expression = Expression.new name, @_view_context, *args, &block
       expression.parent_expression = self
-      self.child_expression = expression
+      @child_expressions << expression
       expression
     end
     
@@ -89,17 +90,21 @@ module Rbjs
         @name + argument_list
       end        
     end
+
+    def to_ary
+      nil
+    end
     
     def argument_list
       return '' if @arguments.empty?
       '(' + @arguments.join(', ') + ')'
     end
     
-    def last_of_chain
-      if @child_expression
-        @child_expression.last_of_chain
+    def last_childs
+      if @child_expressions.length > 0
+        @child_expressions.map(&:last_childs).flatten
       else
-        self
+        [self]
       end
     end
     

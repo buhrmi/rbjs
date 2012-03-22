@@ -133,4 +133,24 @@ describe Rbjs::Root, '#evaluate' do
     js.strip.should == "docs.map(function(doc) {\nw.match(/^_/);\nemit(doc)})"
   end
 
+  it "should render multiple calls to locally assigned expressions" do
+    js = build do
+      selector = jQuery('#content').find('.note')
+      selector.hide!
+      selector.html 'some text'
+    end
+    js.strip.should == "jQuery(\"#content\").find(\".note\").hide();\njQuery(\"#content\").find(\".note\").html(\"some text\")"
+  end
+
+  it "should support multiple nested functions" do
+    js = build do
+      jQuery('.note').fadeIn do
+        delay 1000 do
+          jQuery('.note').hide!
+        end
+      end
+    end
+    js.strip.should == ''
+  end
+
 end
