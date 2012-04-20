@@ -43,7 +43,7 @@ module Rbjs
       if @_view_context and @_view_context.respond_to?(name)
         @_view_context.send name, *args, &block
       else
-        expression = Expression.new name, @_view_context, *args, &block
+        expression = Expression.new name.to_s.gsub('!', '()'), @_view_context, *args, &block
         @_called_expressions << expression
         expression
       end
@@ -62,14 +62,14 @@ module Rbjs
     
     def initialize name, view_context = nil, *args, &block
       @child_expressions = []
-      @name = name.to_s.gsub '!', '()'
+      @name = name.to_s
       @_view_context = view_context
       args << block if block_given?
       @arguments = args.map{|arg| to_argument(arg)}
     end
     
     def method_missing name, *args, &block
-      expression = Expression.new name, @_view_context, *args, &block
+      expression = Expression.new name.to_s.gsub('!', '()'), @_view_context, *args, &block
       expression.parent_expression = self
       @child_expressions << expression
       expression
