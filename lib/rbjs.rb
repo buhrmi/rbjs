@@ -36,7 +36,7 @@ module Rbjs
     
     def evaluate function_parameters = nil
       instance_exec *function_parameters, &@_block
-      @_called_expressions.map(&:last_childs).flatten.reject(&:is_argument).map(&:to_s).join(";\n")
+      @_called_expressions.map(&:last_childs).flatten.reject(&:is_argument).map(&:to_s).join(";\n")+";\n"
     end
     
     def method_missing name, *args, &block
