@@ -1,7 +1,7 @@
 ActionView::Helpers::RenderingHelper.module_eval do
   def render_with_js(options = {}, locals = {}, &block)
     if options == :js
-      Rbjs::Root.new(self, &block).evaluate
+      Rbjs::Root.new(self.view_context, &block).evaluate
     else
       render_without_js(options, locals, &block)
     end
@@ -17,6 +17,15 @@ module Rbjs
 
     def call(template)
       "Rbjs::Root.new self do\n#{template.source}\nend.evaluate"
+    end
+  end
+end
+
+module Rbjs
+  class Root
+    # make respond_to?(:render) return true.
+    def render(options = {}, locals = {}, &block)
+      view_context.render(options, locals, &block) 
     end
   end
 end
