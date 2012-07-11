@@ -92,6 +92,21 @@ So let's "get started":quick_start.html.
 
 h2(#news).  What's New
 
+New in Rbjs 0.10.3 - 0.10.6:
+
+* Now supporting nested render calls
+* Adding extra semicolons to rendered javascript
+* Multiple member calls on the same local variable now render correctly (see multiple_calls_to_local_expression spec for details).
+* Fix for malformed javascript when using << with a string that contains exclamation marks
+
+New in Rbjs 0.10.2:
+
+* Integration with modular Sinatra Apps
+
+New in Rbjs 0.10.1:
+
+* Sinatra support through Tilt
+
 New in Rbjs 0.9.15:
 
 * Test suite included in repostory
