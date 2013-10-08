@@ -1,4 +1,4 @@
-# Remote Javascript DSL for Ruby on Rails 3.1 & 4
+# Javascript DSL for Ruby on Rails 3.1 & 4
 
 Rbjs is a ruby gem you to write remote javascript in Rails 3. It keeps the browser logic-less. [read more](http://buhrmi.github.com/rbjs)
 
