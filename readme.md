@@ -1,4 +1,4 @@
-# Rbjs is Ruby DSL that translates 1-to-1 into Javascript
+# Rbjs is a Ruby DSL that translates 1-to-1 into Javascript
 
 It integrates with Rails 3.1 and 4, and Sinatra
 
