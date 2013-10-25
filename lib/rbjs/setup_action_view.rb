@@ -25,7 +25,7 @@ module Rbjs
   class Root
     # make respond_to?(:render) return true.
     def render(options = {}, locals = {}, &block)
-      view_context.render(options, locals, &block) 
+      @_view_context.render(options, locals, &block) 
     end
   end
 end
