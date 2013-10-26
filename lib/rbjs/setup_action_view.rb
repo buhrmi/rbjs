@@ -30,4 +30,4 @@ module Rbjs
   end
 end
 
-ActionView::Template.register_template_handler :rbjs, Rbjs::TemplateHandler.new
+ActionView::Template.register_template_handler :rb, Rbjs::TemplateHandler.new
