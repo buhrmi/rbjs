@@ -4,7 +4,7 @@ It integrates with Rails 3.1 and 4, and Sinatra
 
 ## What?
 
-With Rbjs you can transform this (create.js.erb)
+Instead of this (create.js.erb)
 
     <% if @collection %>
       jQuery(<%= j render(@image) %>).appendTo('<%= dom_id @collection %>').hide().show('slide')    
@@ -12,7 +12,7 @@ With Rbjs you can transform this (create.js.erb)
       jQuery(<%= j render(@image) %>).insertAfter('.dropzone').hide().show('slide')
     <% end %>
 
-into this (create.js.rb)
+you can write this (create.js.rb)
 
     if @collection
       jQuery(render @image).appendTo(dom_id @collection).hide!.show('slide')    
